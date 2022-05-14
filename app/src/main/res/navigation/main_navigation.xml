@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/currencyListFragment">
+
+    <fragment
+        android:id="@+id/currencyListFragment"
+        android:name="jw.adamiak.currencycheck.ui.currencyList.CurrencyListFragment"
+        android:label="CurrencyListFragment" >
+        <action
+            android:id="@+id/action_currencyListFragment_to_currencyDetailsFragment"
+            app:destination="@id/currencyDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencyDetailsFragment"
+        android:name="jw.adamiak.currencycheck.ui.currencyDetails.CurrencyDetailsFragment"
+        android:label="CurrencyDetailsFragment" >
+        <argument
+            android:name="currency"
+            app:argType="jw.adamiak.currencycheck.data.model.Currency" />
+    </fragment>
+</navigation>
