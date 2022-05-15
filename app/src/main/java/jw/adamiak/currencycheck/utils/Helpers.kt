@@ -1,12 +1,16 @@
 package jw.adamiak.currencycheck.utils
 
 import android.content.Context
+import android.view.View
+import android.widget.ProgressBar
 import com.squareup.moshi.*
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.data.model.CurrencyDto
 import jw.adamiak.currencycheck.ui.currencyList.CurrencyListFragment
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.Buffer
 import org.json.JSONException
@@ -33,11 +37,20 @@ object Helpers {
 	}
 
 	fun getDateString(minusDate: Long): String {
-		// TODO: int -> long conversion goes here
 		val date = LocalDateTime.now().minusDays(minusDate)
 		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-		println("getDateString minus $minusDate: ${date.format(formatter)}")
 		return date.format(formatter)
+	}
+
+	fun toggleProgressBar(pb: ProgressBar, show: Boolean){
+		println("show ProgressBar: $show")
+		CoroutineScope(Dispatchers.Main).launch {
+			if(show){
+				pb.visibility = View.VISIBLE
+			} else {
+				pb.visibility = View.INVISIBLE
+			}
+		}
 	}
 
 	private fun findDatesInJsonString(s: String): Sequence<MatchResult> {
@@ -48,8 +61,8 @@ object Helpers {
 
 	class RatesAdapter {
 		@FromJson
-		fun fromJson(reader: JsonReader): JSONObject? {
-			return (reader.readJsonValue() as? Map<String, List<Currency>>)?.let { data ->
+		fun fromJson(jsonReader: JsonReader): JSONObject? {
+			return (jsonReader.readJsonValue() as? Map<String, List<Currency>>)?.let { data ->
 				try {
 					JSONObject(data)
 				} catch (e: JSONException) {
@@ -64,10 +77,6 @@ object Helpers {
 			value?.let { writer.value(Buffer().writeUtf8(value.toString())) }
 		}
 
-		@ToJson
-		fun toJson(rate: Currency): String {
-			return "date=${rate.date}, rates={${rate.name}=${rate.rate}}"
-		}
 	}
 
 	suspend fun moshiTest(json: String) = withContext(Dispatchers.IO) {

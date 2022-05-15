@@ -17,10 +17,8 @@ import jw.adamiak.currencycheck.data.model.CurrencyDto
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.databinding.FragmentCurrencyListBinding
 import jw.adamiak.currencycheck.utils.Helpers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import jw.adamiak.currencycheck.utils.Helpers.toggleProgressBar
+import kotlinx.coroutines.*
 import okio.Buffer
 import org.json.JSONException
 import org.json.JSONObject
@@ -40,9 +38,8 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 		super.onViewCreated(view, savedInstanceState)
 		binding = FragmentCurrencyListBinding.bind(view)
 
-		setupObservers()
 		setupUI()
-
+		setupObservers()
 	}
 
 	private fun setupUI() {
@@ -52,17 +49,14 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 			layoutManager = linearLayoutManager
 			adapter = pagingAdapter
 		}
-
 	}
-
 
 	private fun setupObservers() {
 		viewModel.isLoading.observe(viewLifecycleOwner) {
-			if (it) binding.pbCurrencyList.visibility = ProgressBar.VISIBLE
-			else binding.pbCurrencyList.visibility = ProgressBar.INVISIBLE
+			toggleProgressBar(binding.pbCurrencyList, it)
 		}
 
-		viewModel.responsePaging?.observe(viewLifecycleOwner) {
+		viewModel.response?.observe(viewLifecycleOwner) {
 			lifecycleScope.launch {
 				pagingAdapter.submitData(it)
 			}

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import jw.adamiak.currencycheck.R
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.databinding.ItemCurrencyRateBinding
 
@@ -36,7 +37,7 @@ class CurrencyPagingAdapter(val context: Context, val listener: OnCurrencyListen
 			fun bind(item: Currency){
 				binding.apply {
 					if(item.name.isNullOrEmpty() || item.rate.isNullOrEmpty()){
-						tvCurrencyItemName.text = "Dzień: ${item.date}"
+						tvCurrencyItemName.text = context.getString(R.string.str_currency_date, item.date)
 						tvCurrencyItemRate.text = ""
 					} else {
 						root.setOnClickListener { listener.onCurrencyClicked(item) }

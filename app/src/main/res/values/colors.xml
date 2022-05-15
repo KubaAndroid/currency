@@ -32,7 +32,9 @@
     <color name="dark_font_light">#e5e5e5</color>
     <color name="dark_font_dark">#aaa</color>
 
-    <color name="rating_good">#00A847</color>
+    <color name="font_green">#00A847</color>
     <color name="rating_average">#dddd00</color>
     <color name="rating_bad">#cc4400</color>
+
+    <color name="ic_launcher_icon_background">#2B2b2b</color>
 </resources>

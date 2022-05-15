@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/primaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/rating_good</item>
+        <item name="colorSecondary">@color/font_green</item>
         <item name="colorSecondaryVariant">@color/accent</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -16,14 +16,8 @@
         <item name="android:windowFullscreen">true</item>
         <item name="fontFamily">@font/roboto</item>
     </style>
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">#000407</item>
-        <item name="background">@color/primaryVariant</item>
-        <item name="android:colorAccent">@color/secondaryVariant</item>
-        <item name="android:textColor">@color/dark_font_light</item>
-        <item name="android:textColorPrimary">@color/dark_font_main</item>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
-    <style name="TextAppearance.MoviesApp.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline5" >
-        <item name="android:textColor">?attr/colorOnSurface</item>
-    </style>
+
 </resources>

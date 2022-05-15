@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CurrencyCheck</string>
+
+    <string name="str_currency_date">Dzień: %1$s</string>
 </resources>
