@@ -41,8 +41,8 @@ class CurrencyPagingAdapter(val context: Context, val listener: OnCurrencyListen
 						tvCurrencyItemRate.text = ""
 					} else {
 						root.setOnClickListener { listener.onCurrencyClicked(item) }
-						tvCurrencyItemName.text = item.name ?: ""
-						tvCurrencyItemRate.text = item.rate ?: ""
+						tvCurrencyItemName.text = item.name
+						tvCurrencyItemRate.text = item.rate
 					}
 				}
 			}

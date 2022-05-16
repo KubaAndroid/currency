@@ -19,6 +19,8 @@ import jw.adamiak.currencycheck.databinding.FragmentCurrencyListBinding
 import jw.adamiak.currencycheck.utils.Helpers
 import jw.adamiak.currencycheck.utils.Helpers.toggleProgressBar
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import okio.Buffer
 import org.json.JSONException
 import org.json.JSONObject
@@ -61,7 +63,6 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 				pagingAdapter.submitData(it)
 			}
 		}
-
 	}
 
 	override fun onCurrencyClicked(currency: Currency) {

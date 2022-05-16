@@ -26,7 +26,7 @@ interface FixerApi {
 
 
 	companion object {
-		const val API_KEY = "GNijUgQ6O6PZnbOpSarpAzEiDEM9odw3"
+		const val API_KEY = "6RU8iv250T6xfT4QzytXvdP3fS4brKuv"
 		const val BASE_URL = "https://api.apilayer.com"
 	}
 

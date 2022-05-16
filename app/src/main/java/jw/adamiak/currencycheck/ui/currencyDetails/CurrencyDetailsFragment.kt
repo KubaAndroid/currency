@@ -17,8 +17,11 @@ class CurrencyDetailsFragment: Fragment(R.layout.fragment_currency_details) {
 
 		if(arguments != null) {
 			currency = requireArguments().get("currency") as Currency
-			binding.tvCurrencyName.text = currency?.name ?: ""
-			binding.tvCurrencyRate.text = currency?.rate ?: ""
+			currency?.let {
+				binding.tvCurrencyName.text = it.name ?: ""
+				binding.tvCurrencyRate.text = it.rate ?: ""
+				binding.tvCurrencyDate.text = getString(R.string.str_currency_date_state, it.date)
+			}
 		} else {
 			findNavController().popBackStack()
 		}

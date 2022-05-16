@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.Buffer
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -43,7 +44,6 @@ object Helpers {
 	}
 
 	fun toggleProgressBar(pb: ProgressBar, show: Boolean){
-		println("show ProgressBar: $show")
 		CoroutineScope(Dispatchers.Main).launch {
 			if(show){
 				pb.visibility = View.VISIBLE
@@ -62,7 +62,7 @@ object Helpers {
 	class RatesAdapter {
 		@FromJson
 		fun fromJson(jsonReader: JsonReader): JSONObject? {
-			return (jsonReader.readJsonValue() as? Map<String, List<Currency>>)?.let { data ->
+			return (jsonReader.readJsonValue() as? Map<String, JSONArray>)?.let { data ->
 				try {
 					JSONObject(data)
 				} catch (e: JSONException) {
@@ -71,12 +71,10 @@ object Helpers {
 				}
 			}
 		}
-
 		@ToJson
 		fun toJson(writer: JsonWriter, value: JSONObject?) {
 			value?.let { writer.value(Buffer().writeUtf8(value.toString())) }
 		}
-
 	}
 
 	suspend fun moshiTest(json: String) = withContext(Dispatchers.IO) {
@@ -88,7 +86,6 @@ object Helpers {
 		val currencyDtoAdapter = moshi.adapter(CurrencyDto::class.java)
 		val dto = currencyDtoAdapter.fromJson(json)
 		println("dto: $dto")
-
 		val currencies = mutableListOf<Currency>()
 		dto?.let {
 			currencies.add(Currency(date = it.date))
@@ -103,7 +100,4 @@ object Helpers {
 			}
 		}
 	}
-
-
-
 }

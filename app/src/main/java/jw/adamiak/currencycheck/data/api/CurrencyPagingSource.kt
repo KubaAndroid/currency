@@ -10,14 +10,14 @@ class CurrencyPagingSource(private val api: FixerApi): PagingSource<Int, Currenc
 	var minusDays = 0L
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Currency> {
 		val currencyListObjects = mutableListOf<Currency>()
-		val page = params.key ?: 1
+		val page = params.key ?: 0
 		return try {
 			val responseDto = api.getCurrencyRatesForDate(getDateString(minusDays)).body()
 			responseDto?.let {
 				currencyListObjects.add(Currency(date = it.date))
 				for (rateName in it.rates.keys()){
 					currencyListObjects.add(Currency(
-							date = it.date ?: "",
+							date = it.date,
 							name = rateName ?: "",
 							rate = String.format("%.8f", it.rates[rateName])
 						)

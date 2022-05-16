@@ -50,5 +50,17 @@
             android:textSize="28sp"
             android:textColor="@color/font_green"/>
 
+        <TextView
+            android:id="@+id/tv_currency_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_currency_rate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:text="Stan na dzień: 10-05-2022"
+            android:textSize="18sp"
+            android:textColor="@color/font_green"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

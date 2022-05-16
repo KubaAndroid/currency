@@ -16,7 +16,7 @@ class CurrencyActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_currency)
 
-		val navigation = Navigation.findNavController(this, R.id.nav_host_fragment)
+//		val navigation = Navigation.findNavController(this, R.id.nav_host_fragment)
 
 	}
 

@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jw.adamiak.currencycheck.data.api.FixerApi
 import jw.adamiak.currencycheck.data.api.FixerApi.Companion.BASE_URL
-import jw.adamiak.currencycheck.data.repository.CurrencyRepository
+import jw.adamiak.currencycheck.data.repository.CurrencyRepositoryImpl
 import jw.adamiak.currencycheck.utils.Helpers
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -35,8 +35,8 @@ object AppModule {
 
 	@Provides
 	@Singleton
-	fun provideRepository(api: FixerApi): CurrencyRepository {
-		return CurrencyRepository(api)
+	fun provideRepository(api: FixerApi): CurrencyRepositoryImpl {
+		return CurrencyRepositoryImpl(api)
 	}
 
 }
