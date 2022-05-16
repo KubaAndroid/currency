@@ -21,37 +21,10 @@ import org.junit.runner.RunWith
 class FakeRepository {
 	private lateinit var moshi: Moshi
 	private lateinit var adapter: JsonAdapter<CurrencyDto>
+	lateinit var instrumentationContext: Context
 
 	private val currencies = mutableListOf<Currency>()
-	lateinit var instrumentationContext: Context
-	private var jsonString: String = "{\n" +
-		"  \"base\": \"GBP\",\n" +
-		"  \"date\": \"2013-12-24\",\n" +
-		"  \"historical\": true,\n" +
-		"  \"rates\": {\n" +
-		"    \"CAD\": 1.739516,\n" +
-		"    \"EUR\": 1.196476,\n" +
-		"    \"UZS\": 1.636492,\n" +
-		"    \"TZS\": 2412.926904,\n" +
-		"    \"UAH\": 30.836128,\n" +
-		"    \"UGX\": 3759.840175,\n" +
-		"    \"USD\": 1.037818,\n" +
-		"    \"UYU\": 43.485207,\n" +
-		"    \"VEF\": 221916825978.82178,\n" +
-		"    \"VND\": 23960.620083,\n" +
-		"    \"VUV\": 118.586947,\n" +
-		"    \"WST\": 2.676888,\n" +
-		"    \"XAF\": 655.86086,\n" +
-		"    \"XAG\": 0.04995,\n" +
-		"    \"XAU\": 0.000571,\n" +
-		"    \"XCD\": 2.804755,\n" +
-		"    \"XDR\": 0.77939,\n" +
-		"    \"XOF\": 655.810314,\n" +
-		"    \"XPF\": 119.816062\n" +
-		"  },\n" +
-		"  \"success\": true,\n" +
-		"  \"timestamp\": 1387929599\n" +
-		"}"
+	private var jsonString: String = ""
 
 	@Before
 	fun setup() {
@@ -61,17 +34,11 @@ class FakeRepository {
 			.build()
 		adapter = moshi.adapter(CurrencyDto::class.java)
 
-//		instrumentationContext = InstrumentationRegistry.getInstrumentation().context
-//		jsonString = runBlocking { readJSONFile(instrumentationContext, "sample.json") }
+		instrumentationContext = InstrumentationRegistry.getInstrumentation().targetContext
+		jsonString = runBlocking { readJSONFile(instrumentationContext, "sample4.json") }
 
+		// TODO: put all objects into list here?
 	}
-
-	// TODO: check if moshi translates object properly
-
-	// TODO: check if there are no doubles in list -
-	//  compare first and other elements
-
-	// TODO: create test PagingAdapter with dummy data from JSON
 
 	@Test
 	fun received_object_is_equal_to_test_object() {
@@ -81,23 +48,49 @@ class FakeRepository {
 				currencies.add(
 					Currency(
 						date = it.date,
-						name = rateName ?: "",
+						name = rateName,
 						rate = it.rates[rateName].toString()
 					)
 				)
 			}
 		}
 
-		val testObject1 = Currency(
-			date = "2013-12-24",
-			name = "CAD",
-			rate = "1.739516"
+		val sampleObject = Currency(
+			date = "2022-05-16",
+			name = "AED",
+			rate = "3.831148"
 		)
 
-		assertEquals(currencies[0], testObject1)
+		assertEquals(currencies[0], sampleObject)
 	}
 
+	// TODO: check if there are no doubles in list -
+	//  compare first and other elements
+	@Test
+	fun received_objects_dont_double() {
+		val dto = adapter.fromJson(jsonString)
+		dto?.let {
+			for (rateName in it.rates.keys()) {
+				currencies.add(
+					Currency(
+						date = it.date,
+						name = rateName,
+						rate = it.rates[rateName].toString()
+					)
+				)
+			}
+		}
+		var duplicates = false
+		val firstCurrencyFromTheList = currencies[0]
+		for(currency in currencies.subList(1, currencies.size - 1)) {
+			if (currency.equals(firstCurrencyFromTheList)){
+				duplicates = true
+			}
+		}
+		assertEquals(duplicates, false)
+	}
 
+	// TODO: create test PagingAdapter with dummy data from JSON
 
 
 
