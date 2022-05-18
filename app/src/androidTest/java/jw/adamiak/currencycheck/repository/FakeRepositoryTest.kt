@@ -7,7 +7,6 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import junit.framework.TestCase.assertEquals
-import jw.adamiak.currencycheck.data.CurrencyPagingSource
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.data.model.CurrencyDto
 import jw.adamiak.currencycheck.utils.Helpers

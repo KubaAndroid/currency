@@ -2,7 +2,6 @@ package jw.adamiak.currencycheck.ui.currencyList
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,24 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.moshi.*
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.AndroidEntryPoint
 import jw.adamiak.currencycheck.R
-import jw.adamiak.currencycheck.data.model.CurrencyDto
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.databinding.FragmentCurrencyListBinding
-import jw.adamiak.currencycheck.utils.Helpers
-import jw.adamiak.currencycheck.utils.Helpers.getDateString
 import jw.adamiak.currencycheck.utils.Helpers.toggleProgressBar
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import okio.Buffer
-import org.json.JSONException
-import org.json.JSONObject
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
@@ -55,14 +42,9 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 			adapter = pagingAdapter
 		}
 		setupAdapter()
-
 	}
 
 	private fun setupObservers() {
-//		viewModel.isLoading.observe(viewLifecycleOwner) {
-//			toggleProgressBar(binding.pbCurrencyList, it)
-//		}
-
 		viewModel.response?.observe(viewLifecycleOwner) {
 			lifecycleScope.launch {
 				pagingAdapter.submitData(it)
@@ -73,7 +55,6 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 	private fun setupAdapter(){
 		pagingAdapter.addLoadStateListener { loadState ->
 			binding.tvCurrencyListEmpty.isVisible = pagingAdapter.itemCount < 1
-			println("loadstate: $loadState")
 			if(loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
 				toggleProgressBar(binding.pbCurrencyList, true)
 			}
@@ -82,18 +63,6 @@ class CurrencyListFragment: Fragment(R.layout.fragment_currency_list),
 			} else {
 				toggleProgressBar(binding.pbCurrencyList, false)
 			}
-
-//			if (loadState.source.refresh is LoadState.NotLoading
-//				&& pagingAdapter.itemCount < 1) {
-//				binding.rvCurrencyList.isVisible = false
-//				toggleProgressBar(binding.pbCurrencyList, false)
-//			}
-//			if(pagingAdapter.itemCount > 1) {
-//				binding.rvCurrencyList.isVisible = true
-//				toggleProgressBar(binding.pbCurrencyList, false)
-//			}
-
-
 		}
 	}
 

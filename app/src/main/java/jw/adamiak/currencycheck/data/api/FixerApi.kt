@@ -1,7 +1,6 @@
 package jw.adamiak.currencycheck.data.api
 
 import jw.adamiak.currencycheck.data.model.CurrencyDto
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,7 +15,7 @@ interface FixerApi {
 	): Response<CurrencyDto>
 
 	companion object {
-		const val API_KEY = "6RU8iv250T6xfT4QzytXvdP3fS4brKuv"
+		const val API_KEY = "jrqOgNVlW0DYS0IXbz36oSx0NZD1E4T3"
 		const val BASE_URL = "https://api.apilayer.com"
 	}
 

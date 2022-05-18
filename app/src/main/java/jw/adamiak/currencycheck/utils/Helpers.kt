@@ -74,6 +74,7 @@ object Helpers {
 
 
 
+
 	private fun findDatesInJsonString(s: String): Sequence<MatchResult> {
 		val dateRegex = """[\d]{4}-[\d]{2}-[\d]{2}""".toRegex()
 		return dateRegex.findAll(s)

@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import jw.adamiak.currencycheck.data.api.FixerApi
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.utils.Helpers.getDateString
-import java.lang.Thread.sleep
 
 class CurrencyPagingSource(private val api: FixerApi): PagingSource<Int, Currency>() {
 	var minusDays = 0

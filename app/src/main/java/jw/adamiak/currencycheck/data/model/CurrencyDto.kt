@@ -3,7 +3,6 @@ package jw.adamiak.currencycheck.data.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.json.JSONObject
-import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class CurrencyDto(
