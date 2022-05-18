@@ -1,13 +1,14 @@
-package jw.adamiak.currencycheck.data.api
+package jw.adamiak.currencycheck.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import jw.adamiak.currencycheck.data.api.FixerApi
 import jw.adamiak.currencycheck.data.model.Currency
 import jw.adamiak.currencycheck.utils.Helpers.getDateString
-import jw.adamiak.currencycheck.utils.Helpers.readJSONFile
+import java.lang.Thread.sleep
 
 class CurrencyPagingSource(private val api: FixerApi): PagingSource<Int, Currency>() {
-	var minusDays = 0L
+	var minusDays = 0
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Currency> {
 		val currencyListObjects = mutableListOf<Currency>()
 		val page = params.key ?: 0
@@ -30,14 +31,13 @@ class CurrencyPagingSource(private val api: FixerApi): PagingSource<Int, Currenc
 				prevKey = null,
 				nextKey = if (page == 365) null else page + 1
 			)
-
 		} catch (e: Exception) {
 			LoadResult.Error(e)
 		}
 	}
 
-	override fun getRefreshKey(state: PagingState<Int, Currency>): Int? {
-		return 0
+	override fun getRefreshKey(state: PagingState<Int, Currency>): Int {
+		return minusDays
 	}
 
 }

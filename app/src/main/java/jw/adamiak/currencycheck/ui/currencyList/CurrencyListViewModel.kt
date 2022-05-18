@@ -5,7 +5,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jw.adamiak.currencycheck.data.model.Currency
-import jw.adamiak.currencycheck.data.repository.CurrencyRepositoryImpl
+import jw.adamiak.currencycheck.repository.CurrencyRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

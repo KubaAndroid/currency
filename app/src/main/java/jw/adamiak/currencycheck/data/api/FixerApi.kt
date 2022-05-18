@@ -15,16 +15,6 @@ interface FixerApi {
 		@Query("apikey") apiKey: String = API_KEY
 	): Response<CurrencyDto>
 
-	@GET("fixer/timeseries")
-	suspend fun getCurrencyRates(
-		@Query("end_date") endDate: String,
-		@Query("start_date") startDate: String,
-		@Query("apikey") apiKey: String = API_KEY
-	): Response<Any>
-
-
-
-
 	companion object {
 		const val API_KEY = "6RU8iv250T6xfT4QzytXvdP3fS4brKuv"
 		const val BASE_URL = "https://api.apilayer.com"

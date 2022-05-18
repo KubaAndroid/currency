@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter
 
 object Helpers {
 
-	suspend fun  readJSONFile(context: Context, filename: String): String  = withContext(Dispatchers.IO){
+	suspend fun readJsonFile(context: Context, filename: String): String  = withContext(Dispatchers.IO){
 		return@withContext try {
 			val inputStream: InputStream = context.assets.open(filename)
 			val size: Int = inputStream.available()
@@ -37,8 +37,9 @@ object Helpers {
 		}
 	}
 
-	fun getDateString(minusDate: Long): String {
-		val date = LocalDateTime.now().minusDays(minusDate)
+	fun getDateString(minusDays: Int): String {
+		val minusDaysLong = minusDays.toLong()
+		val date = LocalDateTime.now().minusDays(minusDaysLong)
 		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 		return date.format(formatter)
 	}
@@ -52,12 +53,6 @@ object Helpers {
 			}
 		}
 	}
-
-	private fun findDatesInJsonString(s: String): Sequence<MatchResult> {
-		val dateRegex = """[\d]{4}-[\d]{2}-[\d]{2}""".toRegex()
-		return dateRegex.findAll(s)
-	}
-
 
 	class RatesAdapter {
 		@FromJson
@@ -75,6 +70,13 @@ object Helpers {
 		fun toJson(writer: JsonWriter, value: JSONObject?) {
 			value?.let { writer.value(Buffer().writeUtf8(value.toString())) }
 		}
+	}
+
+
+
+	private fun findDatesInJsonString(s: String): Sequence<MatchResult> {
+		val dateRegex = """[\d]{4}-[\d]{2}-[\d]{2}""".toRegex()
+		return dateRegex.findAll(s)
 	}
 
 	suspend fun moshiTest(json: String) = withContext(Dispatchers.IO) {
@@ -100,4 +102,7 @@ object Helpers {
 			}
 		}
 	}
+
+
+
 }

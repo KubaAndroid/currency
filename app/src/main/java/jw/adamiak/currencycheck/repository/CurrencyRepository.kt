@@ -1,4 +1,4 @@
-package jw.adamiak.currencycheck.data.repository
+package jw.adamiak.currencycheck.repository
 
 import androidx.paging.PagingData
 import jw.adamiak.currencycheck.data.model.Currency

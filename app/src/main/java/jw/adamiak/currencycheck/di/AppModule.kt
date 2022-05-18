@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jw.adamiak.currencycheck.data.api.FixerApi
 import jw.adamiak.currencycheck.data.api.FixerApi.Companion.BASE_URL
-import jw.adamiak.currencycheck.data.repository.CurrencyRepositoryImpl
+import jw.adamiak.currencycheck.repository.CurrencyRepositoryImpl
 import jw.adamiak.currencycheck.utils.Helpers
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

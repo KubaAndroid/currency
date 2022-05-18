@@ -2,6 +2,7 @@ package jw.adamiak.currencycheck.ui.currencyList
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -39,10 +40,12 @@ class CurrencyPagingAdapter(val context: Context, val listener: OnCurrencyListen
 					if(item.name.isNullOrEmpty() || item.rate.isNullOrEmpty()){
 						tvCurrencyItemName.text = context.getString(R.string.str_currency_date, item.date)
 						tvCurrencyItemRate.text = ""
+						ivCurrencyItemForward.visibility = View.INVISIBLE
 					} else {
 						root.setOnClickListener { listener.onCurrencyClicked(item) }
 						tvCurrencyItemName.text = item.name
 						tvCurrencyItemRate.text = item.rate
+						ivCurrencyItemForward.visibility = View.VISIBLE
 					}
 				}
 			}

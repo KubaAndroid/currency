@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:text="AUD"
             android:textSize="20sp"
@@ -27,12 +28,22 @@
             android:id="@+id/tv_currency_item_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_currency_item_forward"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:text="12121.09934456"
+            android:layout_marginEnd="16dp"
             android:textSize="20sp"
             android:textColor="@color/font_green" />
 
+        <ImageView
+            android:id="@+id/iv_currency_item_forward"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_arrow_forward_ios" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
